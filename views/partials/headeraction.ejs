@@ -1,0 +1,83 @@
+<link rel="stylesheet" href="/css/headeraction.css" />
+<div class="header">
+  <nav id="colorNav">
+    <ul>
+      <li>
+        <a href="#" class="dropdown-toggle fa fa-cog"></a>
+        <ul class="dropdown-menu">
+          <li><a href="/support"><i class="fas fa-headset"></i> الدعم</a></li>
+
+          <li>
+            <form action="/logout" method="POST" id="logout-form">
+              <button type="submit" style="background: none; border: none; padding: 0; width: 100%; text-align: right;">
+                <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+              </button>
+            </form>
+          </li>
+
+          <li><a href="/change-password"><i class="fas fa-lock"></i> تغيير كلمة المرور</a></li>         
+          <li><a href="/updateProfile"><i class="fas fa-user-edit"></i> تعديل الملف الشخصي</a></li> 
+
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  <a href="/friends">
+    <i class="fas fa-users"></i>
+  </a>
+  <a href="/profile">
+    <i class="fas fa-user"></i>
+  </a>
+  <a href="/notifications" class="notification-icon">
+    <i class="fas fa-bell"></i>
+    <% if (locals.unreadCount > 0) { %>
+      <span class="notification-count"><%= locals.unreadCount %></span>
+    <% } %>
+  </a>
+  <a href="/messages">
+    <i class="fas fa-message"></i>
+    <% if (unreadCount > 0) { %>
+      <span class="notification-count"><%= unreadCount %></span>
+    <% } %>
+  </a>
+  <a href="/forum">
+    <i class="fas fa-home"></i>
+  </a>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.querySelector('.dropdown-toggle');
+    const menu = document.querySelector('.dropdown-menu');
+
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.remove('active');
+      }
+    });
+
+    // معالجة تسجيل الخروج
+    const logoutForm = document.getElementById('logout-form');
+    logoutForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const response = await fetch('/logout', {
+          method: 'POST',
+          credentials: 'include'
+        });
+        if (response.ok) {
+          window.location.href = '/login'; // إعادة التوجيه بعد الخروج
+        } else {
+          console.error('فشل في تسجيل الخروج');
+        }
+      } catch (error) {
+        console.error('خطأ أثناء تسجيل الخروج:', error);
+      }
+    });
+  });
+</script>

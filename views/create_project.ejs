@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>إضافة مشروع</title>
+    <!-- استيراد خط "Cairo" لدعم المحتوى العربي -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* إعدادات عامة */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Cairo", sans-serif;
+        text-decoration: rtl;
+      }
+
+      body {
+        background-color: var(--background-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        padding: 0px;
+      }
+      .container {
+        direction: rtl;
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        font-size: 2.5rem;
+        text-align: center;
+        color: #4682b4;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #e0e0e0;
+        padding-bottom: 0.5rem;
+      }
+      .intro p {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+      .section {
+        margin-bottom: 2rem;
+      }
+      .section h2 {
+        font-size: 1.5rem;
+        color: #4682b4;
+        margin-bottom: 0.5rem;
+      }
+      .section p {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+      .tips {
+        background-color: #eef6fa;
+        border-left: 4px solid #4682b4;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+      .tips ul {
+        list-style: disc;
+        margin-right: 1rem;
+      }
+      .tips li {
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+      label {
+        font-weight: bold;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      input[type="text"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 0.8rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      textarea {
+        resize: vertical;
+        min-height: 150px;
+      }
+      button {
+        background-color: #4682b4;
+        color: #fff;
+        border: none;
+        padding: 0.8rem 1.2rem;
+        font-size: 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <%- include('partials/headerhome') %> <%- include('partials/headeraction') %>
+
+  <body>
+    <div class="container">
+      <h1>إضافة مشروع</h1>
+      <div class="intro">
+        <p>ابدأ بإنجاز مشروعك</p>
+
+        <div class="section">
+          <h2>نصائح للحصول على عمل ناجح</h2>
+          <div class="tips">
+            <ul>
+              <li>وضح جميع التفاصيل والمهام المطلوب إنجازها</li>
+              <li>املأ جميع الحقول ووفّر أمثلة لما تريد تنفيذه</li>
+              <li>جزّء المشروع والمهام الكبيرة على عدة مراحل صغيرة</li>
+            </ul>
+          </div>
+        </div>
+        <form action="/projects/create" method="POST">
+          <div class="form-group">
+            <label for="projectTitle">عنوان المشروع *</label>
+            <input type="text" id="projectTitle" name="projectTitle" required />
+          </div>
+          <div class="form-group">
+            <label for="manualDescription">وصف المشروع *</label>
+            <textarea
+              id="manualDescription"
+              name="manualDescription"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="budget">الميزانية ($) *</label>
+            <input
+              type="number"
+              id="budget"
+              name="budget"
+              min="1"
+              step="0.01"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="duration">مدة التنفيذ (بالأيام) *</label>
+            <input
+              type="number"
+              id="duration"
+              name="duration"
+              min="1"
+              required
+            />
+          </div>
+          <button type="submit">نشر المشروع</button>
+        </form>
+      </div>
+    </div>
+  </body>
+  <footer style="margin-top: 20vh"><%- include('partials/footer') %></footer>
+</html>

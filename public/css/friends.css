@@ -1,0 +1,228 @@
+/* تنسيق أساسي */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Cairo", sans-serif;
+}
+
+body {
+  background-color: #f9fbfc;
+  color: #333;
+  font-size: 0.875rem;
+}
+
+.text {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+  color: #6c5ce7;
+  letter-spacing: 1px;
+  margin-bottom: 30px;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.all {
+  display: flex;
+  justify-content: space-between;
+  padding: 2%;
+  gap: 2%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+section {
+  padding: 20px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* تصميم Scroll */
+section::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+section::-webkit-scrollbar-thumb {
+  background: #6c5ce7;
+  border-radius: 50px;
+  width: 5px;
+  height: 5px;
+}
+
+section::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+section {
+  scrollbar-width: thin;
+  scrollbar-color: #6c5ce7 transparent;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+}
+
+.left,
+.right {
+  width: 24%;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.center {
+  width: 48%;
+  max-height: 80vh;
+}
+
+/* تنسيق القوائم */
+.ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.li {
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.2s, box-shadow 0.2s;
+  background-color: #fff;
+}
+
+.li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* تحسين البحث */
+.search {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.search input[type="text"] {
+  width: 100%;
+  padding: 12px 36px 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  outline: none;
+  font-size: 0.875rem;
+}
+
+.search button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #6c5ce7;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.search button:hover {
+  color: #575a8e;
+}
+
+/* تصميم الأزرار */
+button {
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 25px;
+  background-color: #6c5ce7;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+  font-size: 0.875rem;
+}
+
+button:hover {
+  background-color: #575a8e;
+  transform: translateY(-3px);
+}
+
+/* تصميم الأيقونات */
+.friend-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #6c5ce7;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.action-icon:hover {
+  background-color: #575a8e;
+  transform: scale(1.1);
+}
+
+.action-icon i {
+  font-size: 0.875rem;
+}
+
+/* تصميم الصور */
+img {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* تنسيق المعلومات النصية */
+span {
+  color: #869096;
+  font-size: small;
+}
+
+/* تنسيق النموذج */
+form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* تنسيق للجوال */
+@media (max-width: 768px) {
+  .all {
+    flex-direction: column;
+    padding: 1%;
+  }
+
+  .left,
+  .center,
+  .right {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  input[type="text"] {
+    width: 100%;
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+  }
+}

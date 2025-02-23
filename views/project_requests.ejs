@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ar" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلبات الانضمام للمشاريع</title>
+    <!-- استخدام خط "Tajawal" لدعم المحتوى العربي -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6c5ce7; /* اللون البنفسجي المعتمد */
+            --secondary-color: #a29bfe; /* بنفسجي فاتح */
+            --accent-color: #ff7675; /* أحمر */
+            --background-color: #f8f8f8;
+            --card-bg: #fff;
+            --text-color: #2d3436;
+            --border-radius: 12px;
+            --transition: 0.3s ease;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* إعدادات عامة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Tajawal", sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0px;
+            text-align: center;
+        }
+
+        text {
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            font-size: 1.5rem;
+            height: 50px;
+            width: 100px;
+            font-style: bold;
+            margin: 0 auto;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: right;
+            direction: rtl;
+        }
+
+        /* تصميم البطاقات */
+        .request-card {
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            position: relative;
+            overflow: hidden;
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .request-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .request-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .request-card p {
+            margin: 10px 0;
+            line-height: 1.6;
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .request-card strong {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all var(--transition);
+        }
+
+        .btn-accept {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .btn-accept:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-reject {
+            background-color: var(--accent-color);
+            color: #fff;
+        }
+
+        .btn-reject:hover {
+            background-color: #ff5252;
+        }
+
+        .no-requests {
+            text-align: center;
+            padding: 60px;
+            font-size: 1.3rem;
+            color: #666;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+
+            .request-card {
+                padding: 20px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .request-card h3 {
+                font-size: 1.3rem;
+            }
+
+            .request-card p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<%- include('partials/headerhome') %> <%- include('partials/headeraction') %>
+<body>
+    <text>طلبات الانضمام للمشاريع</text>
+    <div class="container">
+        <% if (requests.length > 0) { %>
+            <% requests.forEach(function(request) { %>
+                <div class="request-card" id="request-<%= request.id %>">
+                    <h3>المشروع: <%= request.project_title %></h3>
+                    <p><strong>اسم المتقدم:</strong> <%= request.applicant_name %></p>
+                    <p><strong>البريد الإلكتروني:</strong> <%= request.applicant_email %></p>
+                    <p><strong>الرسالة:</strong> <%= request.motivation %></p>
+                    <p><strong>الحالة:</strong> <span id="status-<%= request.id %>"><%= request.status %></span></p>
+                    <div class="buttons">
+                        <button class="btn btn-accept" onclick="acceptRequest('<%= request.id %>')">قبول</button>
+                        <button class="btn btn-reject" onclick="updateStatus('<%= request.id %>', 'مرفوض')">رفض</button>
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p class="no-requests">لا توجد طلبات انضمام حتى الآن.</p>
+        <% } %>
+    </div>
+
+    <script>
+        // تحديث حالة الطلب (رفض)
+        function updateStatus(requestId, newStatus) {
+            fetch(`/update-request/${requestId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ status: newStatus })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById(`status-${requestId}`).textContent = newStatus;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // قبول الطلب والانتقال إلى صفحة المراسلة
+        async function acceptRequest(requestId) {
+            try {
+                const response = await fetch(`/accept-request/${requestId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    window.location.href = `/messages/${data.conversationId}`;
+                } else {
+                    alert("حدث خطأ أثناء قبول الطلب: " + (data.message || "غير معروف"));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert("حدث خطأ غير متوقع");
+            }
+        }
+    </script>
+</body>
+<footer style="margin-top: 14vh"><%- include('partials/footer') %></footer>
+</html>

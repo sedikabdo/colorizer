@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>المشاريع المتاحة</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* المتغيرات العامة */
+      :root {
+        --primary: #6c5ce7; /* لون رئيسي */
+        --secondary: #6c5ce7; /* لون ثانوي */
+        --accent: #f59e0b; /* لون مميز */
+        --background: #f8fafc; /* لون الخلفية */
+        --card-bg: #ffffff; /* لون خلفية البطاقات */
+        --text-color: #1e293b; /* لون النص */
+        --border-radius: 12px; /* زوايا دائرية */
+        --transition: 0.3s ease; /* تأثيرات الانتقال */
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* ظل خفيف */
+      }
+
+      /* إعدادات عامة */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Tajawal", sans-serif;
+      }
+
+      body {
+        background-color: var(--background);
+        color: var(--text-color);
+        line-height: 1.6;
+        padding: 0px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      /* شبكة المشاريع */
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+      }
+
+      /* بطاقة المشروع */
+      .project-card {
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        padding: 20px;
+        transition: transform var(--transition), box-shadow var(--transition);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        border: 1px solid #e2e8f0;
+      }
+
+      .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      /* أيقونة المشروع */
+      .project-icon-container {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--secondary);
+        border-radius: 50%;
+        color: #fff;
+        font-size: 2em;
+        margin-bottom: 15px;
+      }
+
+      /* تفاصيل المشروع */
+      .project-details h3 {
+        font-size: 1.5em;
+        color: var(--primary);
+        margin-bottom: 10px;
+      }
+
+      .project-details p {
+        font-size: 1em;
+        color: #64748b;
+      }
+
+      /* زر الانضمام */
+      .join-btn {
+        margin-top: 15px;
+        padding: 12px 24px;
+        background: var(--secondary);
+        color: #fff;
+        border-radius: var(--border-radius);
+        font-size: 1em;
+        border: none;
+        cursor: pointer;
+        transition: background var(--transition), transform var(--transition);
+      }
+
+      .join-btn:hover {
+        background: #059669;
+        transform: scale(1.05);
+      }
+
+      /* النموذج المخفي */
+      .hidden-form {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 30px;
+        width: 90%;
+        max-width: 500px;
+        z-index: 150;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .hidden-form.active {
+        display: block;
+      }
+
+      /* خلفية المودال */
+      .modal-backdrop {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 100;
+      }
+
+      .modal-backdrop.active {
+        display: block;
+      }
+
+      /* زر إغلاق المودال */
+      .close-modal {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: none;
+        border: none;
+        font-size: 1.5em;
+        cursor: pointer;
+        color: var(--text-color);
+      }
+
+      /* تحسينات النموذج */
+      .hidden-form input,
+      .hidden-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #e2e8f0;
+        border-radius: var(--border-radius);
+        font-size: 1em;
+      }
+
+      .hidden-form textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      .hidden-form button[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        background: var(--secondary);
+        color: #fff;
+        border: none;
+        border-radius: var(--border-radius);
+        font-size: 1em;
+        cursor: pointer;
+        transition: background var(--transition);
+      }
+
+      .hidden-form button[type="submit"]:hover {
+        background: #059669;
+      }
+    </style>
+  </head>
+  <%- include('partials/headerhome') %> <%- include('partials/headeraction') %>
+    <body>
+  
+      <div class="container">
+          <div class="project-grid">
+              <% projects.forEach(function(project) { %>
+              <div class="project-card">
+                  <div class="project-icon-container">
+                      <i class="fas fa-project-diagram"></i>
+                  </div>
+                  <div class="project-details">
+                      <h3><%= project.title %></h3>
+                      <p><strong>الوصف:</strong> <%= project.description %></p>
+                      <button class="join-btn" onclick="openModal('<%= project.id %>')">
+                          الانضمام <i class="fas fa-sign-in-alt"></i>
+                      </button>
+                  </div>
+              </div>
+              <% }); %>
+          </div>
+      </div>
+  
+      <div id="modal-backdrop" class="modal-backdrop"></div>
+  
+      <% projects.forEach(function(project) { %>
+      <div id="modal-<%= project.id %>" class="hidden-form">
+          <button class="close-modal" onclick="closeModal('<%= project.id %>')">×</button>
+          <form onsubmit="submitApplication(event, '<%= project.id %>')">
+              <input type="hidden" name="project_id" value="<%= project.id %>" />
+              <input type="text" name="applicant_name" placeholder="اسمك" required />
+              <input type="email" name="applicant_email" placeholder="بريدك الإلكتروني" required />
+              <textarea name="motivation" placeholder="لماذا تريد الانضمام؟" required></textarea>
+              <button type="submit">إرسال الطلب</button>
+          </form>
+      </div>
+      <% }); %>
+  
+      <script>
+          document.addEventListener("DOMContentLoaded", function () {
+              const modalBackdrop = document.getElementById("modal-backdrop");
+  
+              window.openModal = function (projectId) {
+                  const modal = document.getElementById(`modal-${projectId}`);
+                  if (modal) {
+                      modal.classList.add("active");
+                      modalBackdrop.classList.add("active");
+                  }
+              };
+  
+              window.closeModal = function (projectId) {
+                  const modal = document.getElementById(`modal-${projectId}`);
+                  if (modal) {
+                      modal.classList.remove("active");
+                      modalBackdrop.classList.remove("active");
+                  }
+              };
+  
+              modalBackdrop.addEventListener("click", function () {
+                  document.querySelectorAll(".hidden-form.active").forEach((modal) => {
+                      modal.classList.remove("active");
+                  });
+                  modalBackdrop.classList.remove("active");
+              });
+  
+              window.submitApplication = function (event, projectId) {
+                  event.preventDefault();
+                  const form = event.target;
+  
+                  const formData = new FormData(form);
+                  const jsonData = {};
+                  formData.forEach((value, key) => {
+                      jsonData[key] = value;
+                  });
+  
+                  console.log("بيانات النموذج المرسلة:", jsonData);
+  
+                  fetch("/apply-project", {
+                      method: "POST",
+                      headers: {
+                          "Content-Type": "application/json",
+                          "Authorization": `Bearer ${localStorage.getItem("token")}`, // إضافة رأس التوثيق
+                      },
+                      body: JSON.stringify(jsonData),
+                  })
+                  .then((response) => response.json())
+                  .then((data) => {
+                      if (data.success) {
+                          alert("تم إرسال الطلب بنجاح!");
+                          closeModal(projectId);
+                          form.reset();
+                      } else {
+                          alert("حدث خطأ أثناء إرسال الطلب: " + data.message);
+                      }
+                  })
+                  .catch((error) => {
+                      console.error("Error:", error);
+                      alert("حدث خطأ غير متوقع.");
+                  });
+              };
+          });
+      </script>
+  </body>
+  <footer style="margin-top: 34vh"><%- include('partials/footer') %></footer>
+  </html>

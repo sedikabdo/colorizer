@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>قائمة المشاريع</title>
+    <!-- استيراد خط "Cairo" لدعم المحتوى العربي -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* إعدادات عامة */
+      body {
+        background-color: #f4f4f4;
+        margin: 0;
+        font-family: "Cairo", sans-serif;
+        direction: rtl;
+        color: #333;
+        line-height: 1.6;
+        padding: 20px;
+      }
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        font-size: 2.5rem;
+        text-align: center;
+        color: #4682b4;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #e0e0e0;
+        padding-bottom: 0.5rem;
+      }
+      .project-list {
+        list-style: none;
+        padding: 0;
+      }
+      .project-item {
+        background-color: #eef6fa;
+        border: 1px solid #ddd;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+      }
+      .project-item:hover {
+        background-color: #d7eaf5;
+      }
+      .project-title {
+        font-size: 1.5rem;
+        color: #4682b4;
+        margin: 0;
+      }
+      .project-description {
+        font-size: 1rem;
+        margin: 0.5rem 0;
+      }
+      .project-details {
+        font-size: 0.9rem;
+        color: #666;
+      }
+      .view-project {
+        display: inline-block;
+        margin-top: 0.5rem;
+        padding: 0.5rem 1rem;
+        background-color: #4682b4;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+      }
+      .view-project:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>قائمة المشاريع</h1>
+      <ul class="project-list">
+        <li class="project-item">
+          <h2 class="project-title">مشروع تطوير موقع إلكتروني</h2>
+          <p class="project-description">
+            نحتاج إلى مطور ويب لإنشاء موقع تعريفي لشركتنا يتضمن معلومات عن
+            خدماتنا وفريق العمل.
+          </p>
+          <p class="project-details">الميزانية: $1000 | المدة: 30 يومًا</p>
+          <a href="#" class="view-project">عرض التفاصيل</a>
+        </li>
+        <li class="project-item">
+          <h2 class="project-title">تصميم تطبيق موبايل</h2>
+          <p class="project-description">
+            مطلوب مصمم لتطبيق موبايل مبتكر يساعد المستخدمين على تتبع لياقتهم
+            البدنية.
+          </p>
+          <p class="project-details">الميزانية: $1500 | المدة: 45 يومًا</p>
+          <a href="#" class="view-project">عرض التفاصيل</a>
+        </li>
+        <!-- يمكنك إضافة المزيد من المشاريع هنا -->
+      </ul>
+    </div>
+  </body>
+</html>
